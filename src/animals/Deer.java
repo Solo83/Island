@@ -1,3 +1,5 @@
+package animals;
+
 public class Deer extends Herbivore {
 
     private static int count; //количество особей вида
@@ -12,7 +14,6 @@ public class Deer extends Herbivore {
     public int getCount() {
         return id;
     }
-
 
 
 }

@@ -1,3 +1,6 @@
+import controller.Island;
+import controller.Turn;
+
 import java.util.concurrent.*;
 
 public class Runner {
@@ -8,9 +11,9 @@ public class Runner {
         newIsland.generateIsland(20, 20);
         newIsland.settleIsland();
 
-     ScheduledExecutorService service = Executors.newScheduledThreadPool(2);
+        ScheduledExecutorService service = Executors.newScheduledThreadPool(2);
 
-             service.scheduleAtFixedRate(new Turn(newIsland),0,2,TimeUnit.SECONDS);
+        service.scheduleAtFixedRate(new Turn(newIsland), 0, 2, TimeUnit.SECONDS);
 
     }
 

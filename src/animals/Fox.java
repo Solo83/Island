@@ -1,7 +1,11 @@
+package animals;
+
+import controller.Animal;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class Fox extends Predator{
+public class Fox extends Predator {
 
     private static int count; //?????????? ?????? ????
 
@@ -14,7 +18,7 @@ public class Fox extends Predator{
 
     public Fox() {
         super(Population.FOX.getPicture(), Population.FOX.getWeight(), Population.FOX.getSpeed(), Population.FOX.getMovesForDeath(), Population.FOX.getMaxPopulationOnCell(), menu);
-        this.type=Population.FOX;
+        this.type = Population.FOX;
         this.id = count;
         count++;
     }

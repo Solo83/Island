@@ -1,3 +1,5 @@
+package animals;
+
 public class Mouse extends Herbivore {
 
     private static int count; //количество особей вида

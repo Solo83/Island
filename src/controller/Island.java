@@ -1,4 +1,7 @@
-import java.lang.reflect.InvocationTargetException;
+package controller;
+
+import animals.*;
+
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -9,7 +12,7 @@ public class Island {
 
     private static Cell[][] islandMap;
 
-    public  static Cell[][] getIslandMap() {
+    public static Cell[][] getIslandMap() {
         return islandMap;
     }
 
@@ -19,7 +22,7 @@ public class Island {
 
         for (int i = 0; i < islandMap.length; i++) {
             for (int j = 0; j < islandMap[i].length; j++) {
-                islandMap[i][j] = new Cell(i,j);
+                islandMap[i][j] = new Cell(i, j);
 
             }
         }
@@ -33,22 +36,22 @@ public class Island {
                     if (!population.name().equals("PLANTS")) {
                         for (int k = 0; k < ThreadLocalRandom.current().nextInt(population.getMaxPopulationOnCell()); k++)
                             cell.getAnimals().add((Animal) fillObjectsOnCell(population));
-                        }
+                    }
                 }
             }
         }
 
         for (Cell[] cells : islandMap) {
             for (Cell cell : cells) {
-                 Collections.shuffle(cell.getAnimals());
+                Collections.shuffle(cell.getAnimals());
             }
         }
     }
 
     public void growPlants(Island.Cell cell) {
 
-              for (int k = 0; k < ThreadLocalRandom.current().nextInt(Population.PLANTS.getMaxPopulationOnCell());  k++)
-                    cell.getPlants().add((new Plants()));
+        for (int k = 0; k < ThreadLocalRandom.current().nextInt(Population.PLANTS.getMaxPopulationOnCell()); k++)
+            cell.getPlants().add((new Plants()));
 
     }
 
@@ -77,22 +80,20 @@ public class Island {
 
     public void eatAllOnCell(Island.Cell cell) {  //Общий метод для еды
 
-                for (Animal animals : cell.getAnimals()) {
-                    if (animals instanceof Herbivore)
-                        animals.eat(cell);
-                }
+        for (Animal animals : cell.getAnimals()) {
+            if (animals instanceof Herbivore) animals.eat(cell);
+        }
 
-                for (Animal animals : cell.getAnimals()) {
-                    if (animals instanceof Predator)
-                        animals.eat(cell);
-                }
+        for (Animal animals : cell.getAnimals()) {
+            if (animals instanceof Predator) animals.eat(cell);
+        }
     }
 
     public void moveAll() { //Общий метод для ходьбы
 
         for (Island.Cell[] cells : islandMap) {
             for (Island.Cell cell : cells) {
-                  Animal.move(cell);
+                Animal.move(cell);
             }
         }
 
@@ -106,16 +107,14 @@ public class Island {
     }
 
     public void islandViewer() { // Статистика
-        System.out.println("\nTurn: "  + Turn.getTurnId());
+        System.out.println("\nTurn: " + Turn.getTurnId());
 
         System.out.printf("\nTOTAL: Animals: %s, Herbivores: %s, Predators: %s, Plants: %s. \n\n", Animal.getAllAnimalCount(), Herbivore.herbivorousCount, Predator.predatorCount, Plants.getAllPlantsCount());
 
         for (Cell[] cells : islandMap) {
             for (Cell cell : cells) {
 
-                Map<Object, Integer> collect = Stream.of(cell.animals, cell.plants)
-                        .flatMap(Collection::stream)
-                        .collect(Collectors.toMap(Object::toString, e -> 1, Integer::sum));
+                Map<Object, Integer> collect = Stream.of(cell.animals, cell.plants).flatMap(Collection::stream).collect(Collectors.toMap(Object::toString, e -> 1, Integer::sum));
 
                 System.out.print(collect);
             }
@@ -124,9 +123,8 @@ public class Island {
     }
 
     public void multiplyOnCell(Island.Cell cell) { //размножаемся
-         Animal.multiply(cell);
+        Animal.multiply(cell);
     }
-
 
 
     public class Cell { // Ячейка острова
@@ -159,13 +157,11 @@ public class Island {
         }
 
 
-        public int getNumberOfSpeciesOnCell (Object o) {
+        public int getNumberOfSpeciesOnCell(Animal animal) {
 
-            Map<Object, Integer> collect = Stream.of(animals)
-                    .flatMap(Collection::stream)
-                    .collect(Collectors.toMap(Object::toString, e -> 1, Integer::sum));
+            Map<Object, Integer> collect = Stream.of(animals).flatMap(Collection::stream).collect(Collectors.toMap(Object::toString, e -> 1, Integer::sum));
 
-            return collect.get(o.toString());
+            return collect.get(animal.toString());
         }
 
     }

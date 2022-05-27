@@ -1,3 +1,7 @@
+package animals;
+
+import controller.Animal;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +22,7 @@ public class Wolf extends Predator {
     }
 
     public Wolf() {
-        super(Population.WOLF.getPicture(), Population.WOLF.getWeight(), Population.WOLF.getSpeed(), Population.WOLF.getMovesForDeath(), Population.WOLF.getMaxPopulationOnCell(),menu);
+        super(Population.WOLF.getPicture(), Population.WOLF.getWeight(), Population.WOLF.getSpeed(), Population.WOLF.getMovesForDeath(), Population.WOLF.getMaxPopulationOnCell(), menu);
         this.type = Population.WOLF;
         this.id = count;
         count++;
